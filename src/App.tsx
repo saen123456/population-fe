@@ -22,21 +22,20 @@ const App: React.FC = () => {
 
   const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get<PopulationResponse>(
+      const response = await axios.get<any>(
         "http://localhost:3000/api/getAllPoppulation"
       );
       if (response.data) {
-        console.log(response.data);
         const countryDataArray = Object.entries(response.data).map(
-          ([country, populationArray]) => ({
-            "Country name": country,
-            Population: populationArray[0], // Assuming you want the first element of the population array
+          (item: any) => ({
+            "Country name": item[0],
+            Population: item[1][0]?.Population, // Assuming you want the first element of the population array
           })
         );
         setPopulationData(countryDataArray);
         setlabels(countryDataArray.map((entry: any) => entry["Country name"]));
         setData(
-          countryDataArray.map((entry: any) => parseInt(entry.Population) || 0)
+          countryDataArray.map((entry: any) => parseInt(entry.Population))
         );
       } else {
         console.error("Invalid data format:", response.data);
@@ -61,19 +60,20 @@ const App: React.FC = () => {
     ],
   };
 
-  const options = {
+  const options: ChartOptions<"bar"> = {
+    indexAxis: "y", // กำหนดให้แกน Y เป็นแกนของข้อมูล
     scales: {
       y: {
+        title: {
+          display: true,
+          text: "Country", // กำหนดชื่อของแกน Y
+        },
+      },
+      x: {
         beginAtZero: true,
         title: {
           display: true,
           text: "Population",
-        },
-      },
-      x: {
-        title: {
-          display: true,
-          text: "Country",
         },
       },
     },
