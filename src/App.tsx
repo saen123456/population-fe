@@ -61,19 +61,19 @@ const App: React.FC = () => {
   };
 
   const options: ChartOptions<"bar"> = {
-    indexAxis: "y", // กำหนดให้แกน Y เป็นแกนของข้อมูล
+    indexAxis: "y", // Set the index axis to y
     scales: {
-      y: {
+      x: {
         title: {
           display: true,
-          text: "Country", // กำหนดชื่อของแกน Y
+          text: "Population", // Set the title for the x axis
         },
       },
-      x: {
+      y: {
         beginAtZero: true,
         title: {
           display: true,
-          text: "Population",
+          text: "Country",
         },
       },
     },
