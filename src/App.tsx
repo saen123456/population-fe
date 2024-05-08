@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import "./App.css";
+// import "./App.css";
 import BarChart from "./BarChart";
 import axios from "axios";
 
